@@ -1,73 +1,54 @@
 import MainPage from './Routers/Main.svelte';
-import Cars from './Routers/Cars.svelte';
-import Register from './Routers/Register.svelte';
 import NotFound from './Routers/NotFound.svelte';
-import Login from './Routers/Login.svelte';
-import Users from './Routers/Users.svelte';
 import axios from 'axios';
-import Reservations from './Routers/Reservations.svelte';
 import { wrap } from 'svelte-spa-router/wrap';
-import User from './Routers/User.svelte';
-import Reservation from './Routers/Reservation.svelte';
+
+const getLoginInformations = async () => {
+  const response = await axios.get(`http://localhost/car_rent/isLogged.php`);
+  const { data } = response;
+  return data
+}
+const isAdmin = ({role}) => role === 'admin'
+const isModerator = ({role}) => role === 'moderator'
 
 const routes = {
   '/': MainPage,
-  '/cars': Cars,
-  '/register': Register,
-  '/login': Login,
+  '/cars': wrap({ asyncComponent: () => import('./Routers/Cars.svelte') }),
+  '/register': wrap({ asyncComponent: () => import('./Routers/Register.svelte') }),
+  '/login': wrap({ asyncComponent: () => import('./Routers/Login.svelte') }),
   '/users/:id': wrap({
-    component: User,
+    asyncComponent: () => import('./Routers/User.svelte'),
     conditions: [
-      async (detail) => {
-        // Make a network request, which are async operations
-        const response = await axios.get(`http://localhost/car_rent/isLogged.php`);
-        const { data } = response;
-        if (data.user) {
-          return data.user.role === 'admin';
-        }
-        return false;
+      async () => {
+        const data = await getLoginInformations()
+        return data?.user ? isAdmin(data.user) : false
       },
     ],
   }),
   '/users': wrap({
-    component: Users,
+    asyncComponent: () => import('./Routers/Users.svelte'),
     conditions: [
-      async (detail) => {
-        // Make a network request, which are async operations
-        const response = await axios.get(`http://localhost/car_rent/isLogged.php`);
-        const { data } = response;
-        if (data.user) {
-          return data.user.role === 'admin';
-        }
-        return false;
+      async () => {
+        const data = await getLoginInformations()
+        return data?.user ? isAdmin(data.user) : false
       },
     ],
   }),
   '/reservations/:id': wrap({
-    component: Reservation,
+    asyncComponent: () => import('./Routers/Reservation.svelte'),
     conditions: [
-      async (detail) => {
-        // Make a network request, which are async operations
-        const response = await axios.get(`http://localhost/car_rent/isLogged.php`);
-        const { data } = response;
-        if (data.user) {
-          return data.user.role === 'admin' || data.user.role === 'moderator';
-        }
-        return false;
+      async () => {
+        const data = await getLoginInformations()
+        return data?.user ? isAdmin(data.user) || isModerator(data.user) : false
       },
     ],
   }),
   '/reservations': wrap({
-    component: Reservations,
+    asyncComponent: () => import('./Routers/Reservations.svelte'),
     conditions: [
-      async (detail) => {
-        // Make a network request, which are async operations
-        const response = await axios.get(`http://localhost/car_rent/isLogged.php`);
-        const { data } = response;
-        if (data.user) {
-          return data.user.role === 'admin' || data.user.role === 'moderator';
-        }
-        return false;
+      async () => {
+        const data = await getLoginInformations()
+        return data?.user ? isAdmin(data.user) || isModerator(data.user) : false
       },
     ],
   }),
