@@ -1,0 +1,18 @@
+{
+  "trailingComma": "all",
+  "tabWidth": 2,
+  "semi": true,
+  "singleQuote": true,
+  "printWidth":100,
+  "overrides": [
+    {
+      "files": "*.svelte",
+      "options": {
+        "parser": "svelte",
+        "svelteSortOrder": "scripts-markup-styles",
+        "svelteBracketNewLine": true,
+        "printWidth": 100
+      }
+    }
+  ]
+}

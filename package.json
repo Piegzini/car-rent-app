@@ -1,0 +1,25 @@
+{
+  "name": "wypozyczalnia",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.11",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.3.11",
+    "prettier": "^2.5.0",
+    "prettier-plugin-svelte": "^2.5.0",
+    "svelte": "^3.37.0",
+    "tailwindcss": "^2.2.19",
+    "vite": "^2.6.4"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "daisyui": "^1.16.2",
+    "svelte-spa-router": "^3.2.0"
+  }
+}
