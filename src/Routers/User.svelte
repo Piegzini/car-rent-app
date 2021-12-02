@@ -32,7 +32,6 @@
   };
 </script>
 
-<Navigation />
 
 {#await getUser() then user}
   <div class="w-full flex justify-center mt-20">

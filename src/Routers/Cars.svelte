@@ -13,7 +13,6 @@
   });
 </script>
 
-<Navigation />
 <div class="w-full flex flex-wrap justify-around " data-theme="halloween">
   {#each cars as car}
     <CarCard

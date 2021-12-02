@@ -14,6 +14,7 @@ const isModerator = ({role}) => role === 'moderator'
 const routes = {
   '/': MainPage,
   '/cars': wrap({ asyncComponent: () => import('./Routers/Cars.svelte') }),
+  '/cars/:id': wrap({ asyncComponent: () => import('./Routers/Car.svelte') }),
   '/register': wrap({ asyncComponent: () => import('./Routers/Register.svelte') }),
   '/login': wrap({ asyncComponent: () => import('./Routers/Login.svelte') }),
   '/users/:id': wrap({

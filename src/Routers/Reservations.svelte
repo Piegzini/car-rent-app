@@ -11,7 +11,6 @@
   });
 </script>
 
-<Navigation />
 <div class="overflow-x-auto mt-4 mx-6 ">
   <table class="table w-full table-compact">
     <thead>

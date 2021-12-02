@@ -28,7 +28,6 @@
   };
 </script>
 
-<Navigation />
 {#if loginStatus === 'pending'}
   <FromUser {sendData} login={true} />
 {:else if loginStatus === 'denied'}

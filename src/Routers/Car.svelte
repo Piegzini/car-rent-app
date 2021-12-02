@@ -1,6 +1,5 @@
 <script>
   import axios from 'axios';
-  import Navigation from '../Components/Navigation.svelte';
   import { push } from 'svelte-spa-router';
 
   export let params = {};
@@ -62,7 +61,7 @@
             </div>
             <div class="w-4/5 mt-8 flex justify-center">
               <button on:click={changeReservation} class="btn btn-outline btn-primary"
-                >Wyślij zmianę</button
+              >Wyślij zmianę</button
               >
             </div>
           </form>

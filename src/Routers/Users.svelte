@@ -13,7 +13,6 @@
   };
 </script>
 
-<Navigation />
 {#await getUsers()}
   <p>loading</p>
 {:then users}
