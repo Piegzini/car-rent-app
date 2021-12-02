@@ -1,4 +1,7 @@
 <script>
+  import { push } from 'svelte-spa-router';
+
+  export let id;
   export let mark;
   export let model;
   export let year;
@@ -17,7 +20,9 @@
         {fuelType} - o mocy aż {enginePower} koni mechanicznych!!!!
       </p>
       <div class="justify-center card-actions">
-        <button class="btn btn-outline btn-accent">Zarezerwuj!</button>
+        <button class="btn btn-outline btn-accent" on:click={() => push(`/cars/${id}}`)}
+          >Zarezerwuj!</button
+        >
       </div>
     </div>
   </div>

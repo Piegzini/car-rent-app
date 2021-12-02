@@ -2,11 +2,21 @@
   import { onMount } from 'svelte';
   import axios from 'axios';
   import Navigation from '../Components/Navigation.svelte';
+  export let params = {};
   import { push } from 'svelte-spa-router';
   let reservations;
 
   onMount(async () => {
-    const response = await axios.get('http://localhost/car_rent/reservations.php');
+    let response;
+    if (params?.id) {
+      response = await axios.get('http://localhost/car_rent/reservations.php', {
+        params: {
+          user: params.id,
+        },
+      });
+    } else {
+      response = await axios.get('http://localhost/car_rent/reservations.php');
+    }
     reservations = response.data;
   });
 </script>
@@ -28,7 +38,7 @@
     <tbody>
       {#if reservations}
         {#each reservations as reservation}
-          <tr on:dblclick={() => push(`/reservations/${reservation.id}`)}>
+          <tr on:dblclick={() => push(`/reservation/${reservation.id}`)}>
             <th>{reservation.id}</th>
             <td>{reservation.username}</td>
             <td>{reservation.carId}</td>

@@ -16,6 +16,7 @@
 <div class="w-full flex flex-wrap justify-around " data-theme="halloween">
   {#each cars as car}
     <CarCard
+      id={car.id}
       mark={car.mark}
       model={car.model}
       year={car.year}
