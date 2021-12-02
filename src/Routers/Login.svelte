@@ -6,6 +6,7 @@
   import SuccessAlert from '../Components/SuccessAlert.svelte';
   import ErrorAlert from '../Components/ErrorAlert.svelte';
   import { push } from 'svelte-spa-router';
+  import { setLoginInfo } from '../stores.js';
 
   let loginStatus = 'pending';
 
@@ -17,12 +18,13 @@
     const { result } = response.data;
     loginStatus = result;
 
-    setTimeout(() => {
+    setTimeout(async () => {
       if (loginStatus === 'success') {
-        push('/');
+        await setLoginInfo()
+        await push('/');
         console.log('push');
       } else if (loginStatus === 'denied') {
-        push('/login');
+        await push('/login');
       }
     }, 1000);
   };

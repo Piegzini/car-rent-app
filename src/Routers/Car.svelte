@@ -3,47 +3,42 @@
   import { push } from 'svelte-spa-router';
 
   export let params = {};
-  let reservation = null;
+  let car = null;
   let status;
-  const getReservation = async () => {
-    const response = await axios.get('http://localhost/car_rent/reservations.php', {
+  const getcar = async () => {
+    const response = await axios.get('http://localhost/car_rent/car.php', {
       params: {
         id: params.id,
       },
     });
     const { data } = response;
-    reservation = data;
+    car = data;
     return data;
   };
 
-  const changeReservation = async () => {
-    const { id, userId, carId, startDate, endDate } = reservation;
-    const response = await axios.put('http://localhost/car_rent/reservations.php', {
+  const changecar = async () => {
+    const { id } = car;
+    const response = await axios.put('http://localhost/car_rent/cars.php', {
       id,
-      userId,
-      carId,
-      startDate,
-      endDate,
-      status,
     });
     if (response.status === 200) {
-      push('/reservations');
+      push('/cars');
     }
   };
 </script>
 
 
-{#await getReservation() then reservation}
+{#await getcar() then car}
   <div class="w-full flex justify-center mt-20">
     <div class="w-1/2 bordered">
       <div class="card ">
         <div class="card-body flex flex-col items-center">
-          <h2 class="card-title">Rezerwacja nr. {reservation.id}</h2>
-          <p>ID: {reservation.id}</p>
-          <p>Car: {reservation.carId} - {reservation.carMark} - {reservation.carModel}</p>
-          <p>Starts date: {reservation.startDate}</p>
-          <p>Ends: {reservation.endDate}</p>
-          <p>Status: {reservation.status}</p>
+          <h2 class="card-title">Rezerwacja nr. {car.id}</h2>
+          <p>ID: {car.id}</p>
+          <p>Car: {car.carId} - {car.carMark} - {car.carModel}</p>
+          <p>Starts date: {car.startDate}</p>
+          <p>Ends: {car.endDate}</p>
+          <p>Status: {car.status}</p>
 
           <form class="mt-10 flex flex-col justify-center items-center ">
             <h3 class="form-title">Zmień status rezerwacji</h3>
@@ -60,7 +55,7 @@
               </select>
             </div>
             <div class="w-4/5 mt-8 flex justify-center">
-              <button on:click={changeReservation} class="btn btn-outline btn-primary"
+              <button on:click={changecar} class="btn btn-outline btn-primary"
               >Wyślij zmianę</button
               >
             </div>

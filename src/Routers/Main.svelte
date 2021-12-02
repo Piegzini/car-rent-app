@@ -1,6 +1,10 @@
 <script>
   import Navigation from '../Components/Navigation.svelte';
   import Footer from '../Components/Footer.svelte';
+  import axios from 'axios';
+
+
+
 </script>
 
 

@@ -2,16 +2,19 @@
   import { link, push } from 'svelte-spa-router';
   import axios from 'axios';
 
-  const getLoginInformations = async () => {
-    const response = await axios.get(`http://localhost/car_rent/isLogged.php`);
-    return response.data;
-  };
+  import { isLogged, setLoginInfo } from '../stores.js';
+
+  let data;
+  isLogged.subscribe(value => {
+    data = value;
+  });
 
   const logOut = async () => {
     const response = await axios.get('http://localhost/car_rent/logOut.php');
     const { result } = response.data;
     if (result !== 'success') return;
-    push('/');
+    await setLoginInfo()
+    await push('/');
   };
 </script>
 
@@ -23,7 +26,6 @@
     <div class="flex items-stretch">
       <a class="btn btn-ghost btn-sm rounded-btn" use:link href="/"> Home </a>
       <a class="btn btn-ghost btn-sm rounded-btn" use:link href="/cars"> Samochody </a>
-      {#await getLoginInformations() then data}
         {#if data.logged}
           {#if data.user.role === 'admin'}
             <a class="btn btn-ghost btn-sm rounded-btn" use:link href="/reservations">
@@ -44,7 +46,7 @@
             Zarejestruj się
           </a>
         {/if}
-      {/await}
+
     </div>
   </div>
 </div>
