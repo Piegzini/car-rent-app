@@ -11,9 +11,32 @@
     cars = response.data;
     console.log(cars);
   });
+
+  const sortIndexes = ['mark', 'engine_capacity', 'engine_power', 'year'];
+  const sort = (index) => {
+    if (index === 'mark') {
+      cars = cars.sort((a, b) => {
+        console.log(a[index]);
+        if (a[index] > b[index]) return 1;
+        if (a[index] < b[index]) return -1;
+        return 0;
+      });
+    } else cars = cars.sort((a, b) => a[index] - b[index]);
+  };
 </script>
 
 <div class="w-full flex flex-wrap justify-around " data-theme="halloween">
+  <div class="w-full flex flex-row mb-6 justify-center">
+    {#each sortIndexes as index}
+      <div class="form-control">
+        <label class="cursor-pointer label">
+          <span class="label-text mx-5">{index}</span>
+          <input type="radio" name="opt" class="radio" on:change={() => sort(index)} />
+        </label>
+      </div>
+    {/each}
+  </div>
+
   {#each cars as car}
     <CarCard
       id={car.id}

@@ -49,7 +49,8 @@ const routes = {
     conditions: [
       async () => {
         const data = await getLoginInformations();
-        return data?.user ? isAdmin(data.user) || isModerator(data.user) : false;
+        return true;
+        // return data?.user ? isAdmin(data.user) || isModerator(data.user) : false;
       },
     ],
   }),
@@ -58,7 +59,8 @@ const routes = {
     conditions: [
       async () => {
         const data = await getLoginInformations();
-        return data?.user ? isAdmin(data.user) || isModerator(data.user) : false;
+        return true;
+        // return data?.user ? isAdmin(data.user) || isModerator(data.user) : false;
       },
     ],
   }),
